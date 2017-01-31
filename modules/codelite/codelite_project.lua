@@ -366,7 +366,10 @@
 	end
 
 	function m.completion(cfg)
-		_p(3, '<Completion EnableCpp11="%s" EnableCpp14="%s">', iif(cfg.flags["C++11"], "yes", "no"), iif(cfg.flags["C++14"], "yes", "no"))
+		local cpp11 = (cfg.language == 'gnu++11') or (cfg.language == 'C++11') or cfg.flags["C++11"]
+		local cpp14 = (cfg.language == 'gnu++14') or (cfg.language == 'C++14') or cfg.flags["C++14"]
+
+		_p(3, '<Completion EnableCpp11="%s" EnableCpp14="%s">', iif(cpp11, "yes", "no"), iif(cpp14, "yes", "no"))
 		_p(4, '<ClangCmpFlagsC/>')
 		_p(4, '<ClangCmpFlags/>')
 		_p(4, '<ClangPP/>') -- TODO: we might want to set special code completion macros...?

@@ -456,7 +456,7 @@
 		local extension
 		if project.isdotnet(prj) then
 			extension = ".csproj"
-		elseif project.iscpp(prj) then
+		else
 			extension = iif(_ACTION > "vs2008", ".vcxproj", ".vcproj")
 		end
 
@@ -632,7 +632,7 @@
 	function vstudio.tool(prj)
 		if project.isdotnet(prj) then
 			return "FAE04EC0-301F-11D3-BF4B-00C04F79EFBC"
-		elseif project.iscpp(prj) then
+		elseif project.isnative(prj) then
 			return "8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942"
 		end
 	end

@@ -441,25 +441,6 @@
 
 
 --
--- Returns true if the project uses the C (and not C++) language.
---
-
-	function project.isc(prj)
-		return prj.language == premake.C
-	end
-
-
-
---
--- Returns true if the project uses a C/C++ language.
---
-
-	function project.iscpp(prj)
-		return prj.language == premake.C or prj.language == premake.CPP
-	end
-
-
---
 -- Returns true if the project uses a .NET language.
 --
 
@@ -473,7 +454,7 @@
 --
 
 	function project.isnative(prj)
-		return project.iscpp(prj)
+		return not project.isdotnet(prj)
 	end
 
 

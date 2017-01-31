@@ -44,7 +44,7 @@
 			else
 				if project.isdotnet(prj) then
 					premake.generate(prj, makefile, make.cs.generate)
-				elseif project.iscpp(prj) then
+				elseif project.isnative(prj) then
 					premake.generate(prj, makefile, make.cpp.generate)
 				end
 			end

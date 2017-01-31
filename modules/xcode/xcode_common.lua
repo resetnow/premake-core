@@ -987,12 +987,32 @@
 			settings['COPY_PHASE_STRIP'] = 'NO'
 		end
 
-		settings['GCC_C_LANGUAGE_STANDARD'] = 'gnu99'
+		if (p.languages.isc(cfg.language)) then
+			if cfg.language ~= "C" then
+				settings['GCC_C_LANGUAGE_STANDARD'] = cfg.language:lower()
+			else
+				if cfg.flags['C99'] then
+					settings['GCC_C_LANGUAGE_STANDARD'] = 'C99'
+				elseif cfg.flags['C11'] then
+					settings['GCC_C_LANGUAGE_STANDARD'] = 'C11'
+				else
+					settings['GCC_C_LANGUAGE_STANDARD'] = 'C90'
+				end
+			end
+		else
+			settings['GCC_C_LANGUAGE_STANDARD'] = 'gnu99'
+		end
 
-		if cfg.flags['C++14'] then
-			settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++14'
-		elseif cfg.flags['C++11'] then
-			settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++0x'
+		if (p.languages.iscpp(cfg.language)) then
+			if cfg.language ~= "C++" then
+				settings['CLANG_CXX_LANGUAGE_STANDARD'] = cfg.language:lower()
+			else
+				if cfg.flags['C++11'] then
+					settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++11'
+				elseif cfg.flags['C++14'] then
+					settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++14'
+				end
+			end
 		end
 
 		if cfg.exceptionhandling == p.OFF then

@@ -58,7 +58,7 @@
 				p.generate(prj, ".csproj.user", function() p.outln(user) end)
 			end
 
-		elseif premake.project.iscpp(prj) then
+		else
 			premake.generate(prj, ".vcxproj", vstudio.vc2010.generate)
 
 			-- Skip generation of empty user files
@@ -71,7 +71,6 @@
 			if tree.hasbranches(project.getsourcetree(prj)) then
 				premake.generate(prj, ".vcxproj.filters", vstudio.vc2010.generateFilters)
 			end
-
 		end
 	end
 

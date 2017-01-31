@@ -46,7 +46,7 @@
 		p.indent("  ")
 		p.escaper(codelite.esc)
 
-		if project.iscpp(prj) then
+		if project.isnative(prj) then
 			p.generate(prj, ".project", codelite.project.generate)
 		end
 	end
