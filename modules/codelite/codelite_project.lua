@@ -365,11 +365,19 @@
 		_p(3, '</AdditionalRules>')
 	end
 
-	function m.completion(cfg)
-		local cpp11 = (cfg.language == 'gnu++11') or (cfg.language == 'C++11') or cfg.flags["C++11"]
-		local cpp14 = (cfg.language == 'gnu++14') or (cfg.language == 'C++14') or cfg.flags["C++14"]
+	function m.isCpp11(cfg)
+		return (cfg.language == 'gnu++11') or (cfg.language == 'C++11') or cfg.flags["C++11"]
+	end
 
-		_p(3, '<Completion EnableCpp11="%s" EnableCpp14="%s">', iif(cpp11, "yes", "no"), iif(cpp14, "yes", "no"))
+	function m.isCpp14(cfg)
+		return (cfg.language == 'gnu++14') or (cfg.language == 'C++14') or cfg.flags["C++14"]
+	end
+
+	function m.completion(cfg)
+		_p(3, '<Completion EnableCpp11="%s" EnableCpp14="%s">', 
+			iif(m.isCpp11(cfg), "yes", "no"), 
+			iif(m.isCpp14(cfg), "yes", "no")
+		)
 		_p(4, '<ClangCmpFlagsC/>')
 		_p(4, '<ClangCmpFlags/>')
 		_p(4, '<ClangPP/>') -- TODO: we might want to set special code completion macros...?
